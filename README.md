@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Studio Landing Templates
 
-## Getting Started
+Professional landing page templates built with the **5-Tool Stack** for studio-grade results — no AI slop.
 
-First, run the development server:
+## The 5-Tool Stack
+
+| Tool | Purpose |
+|------|---------|
+| **Claude Code** | The brain — orchestrates everything |
+| **Nano Banana** | Google's image model for real product photography |
+| **Motion** (Framer Motion) | Animation runtime |
+| **GSAP + ScrollTrigger** | Named scroll patterns (pinned-scrub, sticky-stack, etc.) |
+| **21st Dev MCP** | Premium pre-built React components |
+| **Lenis** | Buttery-smooth scroll foundation |
+
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with Lenis smooth scroll
+│   ├── page.tsx            # Demo landing page showcasing all templates
+│   └── globals.css         # Design tokens (anti-slop defaults)
+├── components/
+│   ├── animations/
+│   │   ├── FadeIn.tsx          # Directional fade with viewport trigger
+│   │   ├── SplitTextReveal.tsx # Word-by-word text animation
+│   │   ├── ScrollReveal.tsx    # GSAP scroll-triggered reveal
+│   │   ├── PinnedSection.tsx   # pinned-scrub pattern
+│   │   ├── StickyStack.tsx     # sticky-stack pattern
+│   │   └── HorizontalScroll.tsx# horizontal-on-vertical pattern
+│   ├── sections/
+│   │   ├── Hero.tsx            # Hero with split text + gradient
+│   │   ├── Features.tsx        # Feature grid (2/3/4 columns)
+│   │   ├── Pricing.tsx         # Pricing tiers with highlighting
+│   │   ├── Testimonials.tsx    # Testimonial cards grid
+│   │   ├── CTA.tsx             # Call-to-action section
+│   │   └── Footer.tsx          # Multi-column footer
+│   ├── ui/
+│   │   ├── Button.tsx          # Animated button (primary/secondary/ghost)
+│   │   ├── Card.tsx            # Hover card with border
+│   │   ├── Badge.tsx           # Section label badge
+│   │   └── Container.tsx       # Responsive container
+│   └── SmoothScroll.tsx        # Lenis wrapper
+├── lib/
+│   ├── design-tokens.ts        # Design system values
+│   └── animations.ts           # Motion variants library
+└── skills/
+    ├── LANDING_PAGE_PROMPT.md   # Master prompt template
+    └── TOOL_SETUP.md            # Setup guide for all 5 tools
+```
 
-## Learn More
+## Design Token Defaults (Anti-Slop)
 
-To learn more about Next.js, take a look at the following resources:
+```
+Background: #121414  (NOT pure black)
+Text:       #e3e2e2  (NOT pure white)
+Surface:    #1c1e1e
+Accent:     #6366f1
+Border:     rgba(255,255,255, 0.06)
+Muted:      #a1a1aa
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Named Animation Patterns
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Use these keywords in prompts — each maps to a GSAP pattern:
 
-## Deploy on Vercel
+- `pinned-scrub` — Page locks while content animates (Apple Vision Pro)
+- `sticky-stack` — Cards hold while next slides over (Stripe pricing)
+- `image-sequence-scrub` — Frame-by-frame orbit by scroll (Apple AirPods)
+- `horizontal-on-vertical` — Scroll down, content moves sideways (Linear)
+- `splittext-reveal` — Letters animate in one by one (Stripe heroes)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## The 7-Step Framework
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Show it what good looks like (send reference URLs)
+2. Lock the look before any code (design tokens)
+3. Plan sections like a magazine
+4. Pick named scroll patterns
+5. Pull in real components (21st Dev)
+6. Generate imagery (Nano Banana)
+7. Test, fix, repeat
+
+## Tool Setup
+
+See `src/skills/TOOL_SETUP.md` for detailed setup instructions for each tool.
+
+## Deploy
+
+```bash
+npm run build
+```
+
+Output is in the `out/` directory, ready for static hosting.
