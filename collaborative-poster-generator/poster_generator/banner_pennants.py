@@ -82,10 +82,10 @@ def draw_banner_pennants(
     if not text:
         text = "POSTER"
 
-    # Layout: 3 pennants per row, 2 rows per page
-    pennant_w = 3.2 * inch
-    pennant_h = 4.0 * inch
-    per_row = 3
+    # Layout: 2 pennants per row, 2 rows per page (4 per page)
+    pennant_w = 3.5 * inch
+    pennant_h = 4.2 * inch
+    per_row = 2
     rows_per_page = 2
     per_page = per_row * rows_per_page
 

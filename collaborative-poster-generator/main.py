@@ -39,7 +39,7 @@ from poster_generator.pdf_compiler import compile_pdf
 @click.option(
     "--banner-text", "-b",
     default=None,
-    help="Text for banner pennants (defaults to title).",
+    help="Text for banner pennants — use the poster topic (e.g. 'EARTH DAY'). Defaults to title.",
 )
 @click.option(
     "--output", "-o",
