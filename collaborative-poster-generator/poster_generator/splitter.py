@@ -2,9 +2,18 @@
 
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageFilter, ImageOps
 
 from .utils import ROW_LABELS, grid_code
+
+
+def _to_coloring_page(img: Image.Image) -> Image.Image:
+    """Convert a color image into a black-and-white coloring-page outline."""
+    gray = img.convert("L")
+    edges = gray.filter(ImageFilter.FIND_EDGES)
+    inverted = ImageOps.invert(edges)
+    threshold = inverted.point(lambda p: 255 if p > 200 else 0)
+    return threshold.convert("RGBA")
 
 
 def split_image(
@@ -12,11 +21,16 @@ def split_image(
     rows: int,
     cols: int,
     output_dir: str | Path | None = None,
+    bw: bool = False,
 ) -> list[dict]:
     """Split *image_path* into a rows×cols grid and return metadata for each piece.
 
     Each piece is cropped from the source image.  If *output_dir* is given the
     pieces are also saved to disk as PNG files.
+
+    Parameters
+    ----------
+    bw : If True, convert each piece to a black-and-white coloring outline.
 
     Returns a list of dicts::
 
@@ -42,6 +56,10 @@ def split_image(
             lower = upper + piece_h if r < rows - 1 else img_h
 
             piece_img = img.crop((left, upper, right, lower))
+
+            if bw:
+                piece_img = _to_coloring_page(piece_img)
+
             code = grid_code(r, c)
 
             if output_dir is not None:

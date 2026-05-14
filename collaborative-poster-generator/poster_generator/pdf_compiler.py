@@ -21,6 +21,7 @@ def compile_pdf(
     title: str = "Collaborative Poster",
     subtitle: str = "Collaborative Coloring Activity",
     banner_text: str | None = None,
+    bw: bool = False,
 ) -> Path:
     """Build the complete product PDF.
 
@@ -32,6 +33,7 @@ def compile_pdf(
     title : product title shown on cover and headers.
     subtitle : product subtitle shown on cover.
     banner_text : optional text for the banner pennants (defaults to *title*).
+    bw : If True, generate black-and-white coloring version.
 
     Returns
     -------
@@ -44,24 +46,28 @@ def compile_pdf(
 
     full_image = Image.open(image_path).convert("RGBA")
 
-    # Split the image
-    pieces = split_image(image_path, rows, cols)
+    # Split the image (with optional B&W conversion)
+    pieces = split_image(image_path, rows, cols, bw=bw)
+
+    # Adjust subtitle for B&W mode
+    if bw and subtitle == "Collaborative Coloring Activity":
+        subtitle = "Collaborative Coloring Activity (Black & White)"
 
     # Create the PDF canvas
     c = Canvas(str(output_path), pagesize=(PAGE_WIDTH, PAGE_HEIGHT))
     c.setTitle(title)
     c.setAuthor("Collaborative Poster Generator")
 
-    # 1. Cover page
+    # 1. Cover page (always uses the color image for preview)
     draw_cover_page(c, title, subtitle, rows, cols, full_image)
 
     # 2. Table of Contents
     draw_toc_page(c, title, rows, cols)
 
-    # 3. Assembly Guide
+    # 3. Assembly Guide (always uses color image for the grid map)
     draw_assembly_guide(c, title, rows, cols, full_image)
 
-    # 4. Poster pieces
+    # 4. Poster pieces (color or B&W depending on mode)
     for piece in pieces:
         draw_piece_page(c, piece["image"], piece["code"])
 
